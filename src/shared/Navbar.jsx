@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
+import logo from "../assets/toylandlogo.ico";
+
 const Navbar = () => {
   return (
-    <div>
-      <div className=" container mx-auto navbar bg-base-100">
+    <div className="bg-[#2A2F4F] text-white">
+      <div className=" container mx-auto navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -22,7 +25,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#2A2F4F] rounded-box w-52 font-semibold"
             >
               <li>
                 <a>Item 1</a>
@@ -35,22 +38,36 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className=" normal-case text-xl">daisyUI</a>
+          <Link to="/">
+            <div className="flex ">
+              <img className="w-8 mr-2" src={logo} alt="" />
+              <span className=" normal-case text-xl font-bold">Toy Land</span>
+            </div>
+          </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center hidden lg:flex font-semibold">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Home</a>
-            </li>
-            <li tabIndex={0}>
-              <a>Blog</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a></a>
+              <Link to="/blog">Blog</Link>
             </li>
+            <li>
+              <Link to="/allToys">All Toys</Link>
+            </li>
+            {/* <li>
+              <Link to="/muToys">My Toys</Link>
+            </li>
+            <li>
+              <Link to="/addAToy">Add A Toy</Link>
+            </li> */}
           </ul>
         </div>
         <div className="navbar-end">
+          {/* <div className="w-10 rounded-full mr-4">
+            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          </div> */}
           <a className="btn">Login</a>
         </div>
       </div>
