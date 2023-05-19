@@ -68,7 +68,9 @@ const Navbar = () => {
           {/* <div className="w-10 rounded-full mr-4">
             <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
           </div> */}
-          <a className="btn bg-[#917FB3]">Login</a>
+          <Link to="/login" className="btn bg-[#917FB3]">
+            Login
+          </Link>
         </div>
       </div>
     </div>

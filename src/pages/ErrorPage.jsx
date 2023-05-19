@@ -6,7 +6,7 @@ const ErrorPage = () => {
   //   console.log(error.data);
   return (
     <div className=" w-2/5 h-2/5 mx-auto mt-18 text-center ">
-      <img className="w-full rounded" src={errorImg} alt="" />
+      <img className=" rounded" src={errorImg} alt="" />
       <p className="mt-3 text-xl text-red-500">Page Not Pound!!</p>
       <p className="mt-2 text-xl text-red-500">{error.data}</p>
       <Link to="/">
@@ -17,4 +17,3 @@ const ErrorPage = () => {
 };
 
 export default ErrorPage;
-//
