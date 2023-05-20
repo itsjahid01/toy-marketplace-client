@@ -40,17 +40,29 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#2A2F4F] rounded-box w-52 font-semibold"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#2A2F4F] rounded-box w-52"
             >
               <li>
-                <a>Item 1</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a>Parent</a>
+                <Link to="/blog">Blog</Link>
               </li>
               <li>
-                <a>Item 3</a>
+                <Link to="/allToys">All Toys</Link>
               </li>
+              {user && user ? (
+                <>
+                  <li>
+                    <Link to="/myToys">My Toys</Link>
+                  </li>
+                  <li>
+                    <Link to="/addAToy">Add A Toy</Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
           <Link to="/">
@@ -60,7 +72,7 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex font-semibold">
+        <div className="navbar-center hidden lg:flex ">
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link to="/">Home</Link>
