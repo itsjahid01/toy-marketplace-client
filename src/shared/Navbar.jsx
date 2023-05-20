@@ -100,8 +100,8 @@ const Navbar = () => {
         <div className="navbar-end">
           {user && user ? (
             <>
-              <div title={user?.displayName} className="w-10 rounded-full mr-4">
-                <img src={user?.photoURL} />
+              <div title={user?.displayName} className=" mr-4">
+                <img className="w-10 rounded-full" src={user?.photoURL} />
               </div>
               <Link
                 onClick={handleLogOut}
