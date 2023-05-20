@@ -10,7 +10,7 @@ const Banner = () => {
             Let The Fun Begin: <br /> Your One-Stop
             <span className="text-red-600"> Toy Shop</span>
           </p>
-          <p className="text-lg font-semibold mb-6">
+          <p className="text-lg mb-6">
             It is Long established fact that a reader will be <br />
             distracted by the readable content of a page.
           </p>
