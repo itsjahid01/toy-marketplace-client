@@ -12,7 +12,7 @@ const About = () => {
           <p className="text-fuchsia-600 text-xl mb-2 ">Our Mission</p>
           <p className="text-5xl mb-5 font-semibold italic">About Us</p>
           <p className="mb-5 text-lg">
-            it is a long established fact that a reader will be <br />{" "}
+            It is a long established fact that a reader will be <br />{" "}
             distracted by the readable content of a page when <br /> looking at
             its layout.The point of using Lorem ipsum is <br /> that it has a
             more or less
