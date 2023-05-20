@@ -1,7 +1,63 @@
 import { Link } from "react-router-dom";
 import signUp from "../assets/sign-up.png";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+  const { registerUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [passError, setPassError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleCreateUser = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const photoURL = form.photoUrl.value;
+    console.log(name, email, password, photoURL);
+    form.reset();
+
+    if ((name, email, password)) {
+      registerUser(email, password)
+        .then((result) => {
+          console.log(result.user);
+          setPassError("");
+          updateUserData(result.user, name, photoURL);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setError("");
+        });
+    } else {
+      setError("Please fill the form.");
+    }
+
+    if (password && password.length < 6) {
+      setPassError("Password must be at least 6 characters long");
+      return;
+    }
+  };
+
+  const updateUserData = (user, name, photoURL) => {
+    updateProfile(user, {
+      displayName: name,
+      photoURL: photoURL,
+    })
+      .then(() => {
+        console.log("profile updated");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className="container mx-auto">
       <div className="md:flex justify-center items-center gap-8 p-8 ">
@@ -11,8 +67,8 @@ const Register = () => {
         <div className=" md:w-1/2 p-5">
           <div className="card shadow-2xl p-5">
             <h1 className="text-3xl font-bold text-center">Sign Up</h1>
-            {/* {<p className="text-red-500">{error}</p>} */}
-            <form className="">
+            {<p className="text-red-500">{error}</p>}
+            <form onSubmit={handleCreateUser} className="">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -45,7 +101,7 @@ const Register = () => {
                   name="password"
                   className="input input-bordered"
                 />
-                {/* {<p className="text-red-500">{passError}</p>} */}
+                {<p className="text-red-500">{passError}</p>}
               </div>
               <div className="form-control">
                 <label className="label">

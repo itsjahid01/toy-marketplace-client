@@ -1,7 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/toylandlogo.ico";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { logOut, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="bg-[#2A2F4F] text-white">
       <div className=" container mx-auto navbar">
@@ -56,21 +71,39 @@ const Navbar = () => {
             <li>
               <Link to="/allToys">All Toys</Link>
             </li>
-            {/* <li>
-              <Link to="/muToys">My Toys</Link>
-            </li>
-            <li>
-              <Link to="/addAToy">Add A Toy</Link>
-            </li> */}
+            {user && user ? (
+              <>
+                <li>
+                  <Link to="/myToys">My Toys</Link>
+                </li>
+                <li>
+                  <Link to="/addAToy">Add A Toy</Link>
+                </li>
+              </>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
         <div className="navbar-end">
-          {/* <div className="w-10 rounded-full mr-4">
-            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-          </div> */}
-          <Link to="/login" className="btn bg-[#917FB3]">
-            Login
-          </Link>
+          {user && user ? (
+            <>
+              <div title={user?.displayName} className="w-10 rounded-full mr-4">
+                <img src={user?.photoURL} />
+              </div>
+              <Link
+                onClick={handleLogOut}
+                to="/login"
+                className="btn bg-[#917FB3]"
+              >
+                Logout
+              </Link>
+            </>
+          ) : (
+            <Link to="/login" className="btn bg-[#917FB3]">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>
