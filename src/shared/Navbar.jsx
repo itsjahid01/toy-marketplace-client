@@ -68,7 +68,9 @@ const Navbar = () => {
           <Link to="/">
             <div className="flex ">
               <img className="w-8 mr-2" src={logo} alt="" />
-              <span className=" normal-case text-xl font-bold">Toy Land</span>
+              <span className=" normal-case text-xl font-bold italic">
+                Toy Land
+              </span>
             </div>
           </Link>
         </div>
