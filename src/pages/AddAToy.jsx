@@ -111,7 +111,7 @@ const AddAToy = () => {
         className="textarea textarea-bordered textarea-sm w-full mt-5 "
       ></textarea>
       <div className="form-control w-48 ml-auto mt-6">
-        <button type="submit" className="btn btn-primary ">
+        <button type="submit" className="btn bg-[#2A2F4F]">
           Add A Toy
         </button>
       </div>
