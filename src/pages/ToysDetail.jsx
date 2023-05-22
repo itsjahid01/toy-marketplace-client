@@ -18,7 +18,8 @@ const ToysDetail = () => {
 
   return (
     <div className="">
-      <div className="container mx-auto card card-side  shadow-2xl my-10">
+      <p className="text-4xl text-center p-5 font-semibold">Toy Details </p>
+      <div className="container mx-auto card card-side  shadow-2xl my-8">
         <figure className="w-1/2 p-8">
           <img className="w-9/12" src={photoUrl} alt="Movie" />
         </figure>

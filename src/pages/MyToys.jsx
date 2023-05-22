@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useTitle from "../hooks/useTitle";
+import { Link } from "react-router-dom";
 
 const MyToys = () => {
   useTitle("My Toys");
@@ -21,30 +22,29 @@ const MyToys = () => {
   const handleDelete = (_id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You want to delete this Toy!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      fetch(`http://localhost:5000/allProducts/${_id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data?.deletedCount > 0) {
-            if (result.isConfirmed) {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/allProducts/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data?.deletedCount > 0) {
+              Swal.fire("Deleted!", "Your Toy has been deleted.", "success");
+              const remaining = userAdded.filter(
+                (product) => product._id !== _id
+              );
+              setUserAdded(remaining);
             }
-
-            const remaining = userAdded.filter(
-              (product) => product._id !== _id
-            );
-            setUserAdded(remaining);
-          }
-        });
+          });
+      }
     });
   };
 
@@ -72,9 +72,11 @@ const MyToys = () => {
                 <td>{product?.subCategory}</td>
                 <td>$ {product?.price}</td>
                 <td>{product?.quantity}</td>
-                <td className="flex items-center justify-evenly text-3xl">
+                <td className="flex items-center justify-evenly text-2xl">
                   <div>
-                    <FaEdit></FaEdit>
+                    <Link to={`/updateToy/${product?._id}`}>
+                      <FaEdit></FaEdit>
+                    </Link>
                   </div>
                   <div onClick={() => handleDelete(product?._id)}>
                     <MdDelete></MdDelete>

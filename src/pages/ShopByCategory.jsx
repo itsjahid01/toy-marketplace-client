@@ -1,80 +1,160 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const ShopByCategory = () => {
+  const { user } = useContext(AuthContext);
   const [category, setCategory] = useState("Sports Car");
+  const [toys, setToys] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/category/${category}`)
       .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
+      .then((data) => setToys(data));
+  }, [category]);
 
-  const handle = () => {
-    console.log("dsidu");
+  const handleDetails = () => {
+    toast("You have to log in first to view details!");
+    // if (!user) {
+    //   return <Navigate to="/login"></Navigate>;
+    // }
   };
-  // () => setCategory("Sports Car")
+
   return (
-    <div className="container mx-auto text-center m-10 p-5">
+    <div className="container mx-auto text-center m-8 p-5">
       <p className="text-4xl font-semibold">Shop By Category</p>
-      <div className="mt-8">
+      <div className="my-10">
         <Tabs>
           <TabList>
-            <Tab onClick={handle}>Sports Car</Tab>
-            <Tab>Regular Car</Tab>
-            <Tab>Mini Police Car</Tab>
+            <Tab onClick={() => setCategory("Sports Car")}>Sports Car</Tab>
+            <Tab onClick={() => setCategory("Regular Car")}>Regular Car</Tab>
+            <Tab onClick={() => setCategory("Mini Police Car")}>
+              Mini Police Car
+            </Tab>
           </TabList>
 
           <TabPanel>
-            <div className="card card-side bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  src="/images/stock/photo-1635805737707-575885ab0820.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">New movie is released!</h2>
-                <p>Click the button to watch on Jetflix app.</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Watch</button>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-3">
+              {toys &&
+                toys.slice(0, 2).map((toy) => (
+                  <div key={toy?._id} className="card card-side  shadow-2xl">
+                    <figure className="w-1/2 p-2">
+                      <img src={toy?.photoUrl} alt="Movie" />
+                    </figure>
+                    <div className="card-body text-left">
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Toy Name:
+                        </span>
+                        {toy?.toyName}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Price:
+                        </span>
+                        {toy?.price}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Rating:
+                        </span>
+                        {toy?.rating}
+                      </p>
+                      <div className="card-actions justify-end">
+                        <button
+                          onClick={handleDetails}
+                          className="btn bg-[#2A2F4F]"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="card card-side bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  src="/images/stock/photo-1635805737707-575885ab0820.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">New movie is released!</h2>
-                <p>Click the button to watch on Jetflix app.</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Watch</button>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-3">
+              {toys &&
+                toys.slice(0, 2).map((toy) => (
+                  <div key={toy?._id} className="card card-side  shadow-2xl">
+                    <figure className="w-1/2 p-2">
+                      <img src={toy?.photoUrl} alt="Movie" />
+                    </figure>
+                    <div className="card-body text-left">
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Toy Name:
+                        </span>
+                        {toy?.toyName}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Price:
+                        </span>
+                        {toy?.price}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Rating:
+                        </span>
+                        {toy?.rating}
+                      </p>
+                      <div className="card-actions justify-end">
+                        <button
+                          onClick={handleDetails}
+                          className="btn bg-[#2A2F4F]"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="card card-side bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  src="/images/stock/photo-1635805737707-575885ab0820.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">New movie is released!</h2>
-                <p>Click the button to watch on Jetflix app.</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Watch</button>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-3">
+              {toys &&
+                toys.slice(0, 2).map((toy) => (
+                  <div key={toy?._id} className="card card-side  shadow-2xl">
+                    <figure className="w-1/2 p-2">
+                      <img src={toy?.photoUrl} alt="Movie" />
+                    </figure>
+                    <div className="card-body text-left">
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Toy Name:
+                        </span>
+                        {toy?.toyName}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Price:
+                        </span>
+                        {toy?.price}
+                      </p>
+                      <p>
+                        <span className="text-lg font-semibold text-fuchsia-800 mr-2">
+                          Rating:
+                        </span>
+                        {toy?.rating}
+                      </p>
+                      <div className="card-actions justify-end">
+                        <button
+                          onClick={handleDetails}
+                          className="btn bg-[#2A2F4F]"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </TabPanel>
         </Tabs>
