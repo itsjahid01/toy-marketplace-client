@@ -9,8 +9,7 @@ import MyToys from "../pages/MyToys";
 import AllToys from "../pages/AllToys";
 import AddAToy from "../pages/AddaToy";
 import PrivateRoute from "../pages/PrivateRoute";
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+
 import ToysDetail from "../pages/ToysDetail";
 
 const router = createBrowserRouter([
@@ -50,9 +49,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/allToys/:id",
-        element: <ToysDetail></ToysDetail>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/allProducts/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <ToysDetail></ToysDetail>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) => fetch(`http://localhost:5000/toy/${params.id}`),
       },
       {
         path: "/addAToy",

@@ -6,7 +6,7 @@ const ShopByCategory = () => {
   const [category, setCategory] = useState("Sports Car");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/allProducts/${category}`)
+    fetch(`http://localhost:5000/category/${category}`)
       .then((res) => res.json())
       .then((data) => console.log(data));
   }, []);

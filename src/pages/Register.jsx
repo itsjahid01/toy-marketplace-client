@@ -4,8 +4,10 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import useTitle from "../hooks/useTitle";
 
 const Register = () => {
+  useTitle("Register");
   const { registerUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [passError, setPassError] = useState("");

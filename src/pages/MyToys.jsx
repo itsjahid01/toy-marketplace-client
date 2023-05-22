@@ -3,8 +3,10 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import useTitle from "../hooks/useTitle";
 
 const MyToys = () => {
+  useTitle("My Toys");
   const { user } = useContext(AuthContext);
 
   const [userAdded, setUserAdded] = useState([]);
