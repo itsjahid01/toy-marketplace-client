@@ -1,17 +1,50 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const MyToys = () => {
   const { user } = useContext(AuthContext);
 
   const [userAdded, setUserAdded] = useState([]);
-  console.log(userAdded);
+  // console.log(userAdded);
 
   useEffect(() => {
     fetch(`http://localhost:5000/allProducts/${user.email}`)
       .then((res) => res.json())
       .then((data) => setUserAdded(data));
   }, []);
+
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      fetch(`http://localhost:5000/allProducts/${_id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data?.deletedCount > 0) {
+            if (result.isConfirmed) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+
+            const remaining = userAdded.filter(
+              (product) => product._id !== _id
+            );
+            setUserAdded(remaining);
+          }
+        });
+    });
+  };
 
   return (
     <div className="container mx-auto my-10">
@@ -37,8 +70,13 @@ const MyToys = () => {
                 <td>{product?.subCategory}</td>
                 <td>$ {product?.price}</td>
                 <td>{product?.quantity}</td>
-                <td>
-                  <button className="btn bg-[#2A2F4F]">View Details</button>
+                <td className="flex items-center justify-evenly text-3xl">
+                  <div>
+                    <FaEdit></FaEdit>
+                  </div>
+                  <div onClick={() => handleDelete(product?._id)}>
+                    <MdDelete></MdDelete>
+                  </div>
                 </td>
               </tr>
             ))}

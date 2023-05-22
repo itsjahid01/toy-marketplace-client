@@ -1,9 +1,9 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const AllToys = () => {
   const allProducts = useLoaderData();
-  console.log(allProducts);
+  // console.log(allProducts);
   return (
     <div className="container mx-auto my-10">
       <div className="flex justify-center">
@@ -40,7 +40,9 @@ const AllToys = () => {
                 <td>$ {product?.price}</td>
                 <td>{product?.quantity}</td>
                 <td>
-                  <button className="btn bg-[#2A2F4F]">View Details</button>
+                  <Link to={`/allToys/${product?._id}`}>
+                    <button className="btn bg-[#2A2F4F]">View Details</button>
+                  </Link>
                 </td>
               </tr>
             ))}

@@ -11,6 +11,7 @@ import AddAToy from "../pages/AddaToy";
 import PrivateRoute from "../pages/PrivateRoute";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import ToysDetail from "../pages/ToysDetail";
 
 const router = createBrowserRouter([
   {
@@ -36,12 +37,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/myToys",
-        element: <MyToys></MyToys>,
+        element: (
+          <PrivateRoute>
+            <MyToys></MyToys>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allToys",
         element: <AllToys></AllToys>,
         loader: () => fetch("http://localhost:5000/allProducts"),
+      },
+      {
+        path: "/allToys/:id",
+        element: <ToysDetail></ToysDetail>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/allProducts/${params.id}`),
       },
       {
         path: "/addAToy",

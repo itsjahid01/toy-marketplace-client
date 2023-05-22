@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const ShopByCategory = () => {
+  const [category, setCategory] = useState("Sports Car");
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/allProducts/${category}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  const handle = () => {
+    console.log("dsidu");
+  };
+  // () => setCategory("Sports Car")
   return (
     <div className="container mx-auto text-center m-10 p-5">
       <p className="text-4xl font-semibold">Shop By Category</p>
       <div className="mt-8">
         <Tabs>
           <TabList>
-            <Tab>Sports Car</Tab>
+            <Tab onClick={handle}>Sports Car</Tab>
             <Tab>Regular Car</Tab>
             <Tab>Mini Police Car</Tab>
           </TabList>

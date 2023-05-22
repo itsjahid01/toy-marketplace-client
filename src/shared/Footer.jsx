@@ -43,7 +43,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr />
+        <hr className="w-28 mx-auto" />
         <div className="text-center mt-3 pb-3">
           <p>Copyright © 2023 - All right reserved by Toy Land</p>
         </div>

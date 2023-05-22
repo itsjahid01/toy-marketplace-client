@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const AddAToy = () => {
+  const { user } = useContext(AuthContext);
+  // console.log(user);
   const handleAddToy = (event) => {
     event.preventDefault();
 
@@ -12,6 +16,7 @@ const AddAToy = () => {
     const price = form.price.value;
     const quantity = form.quantity.value;
     const rating = form.rating.value;
+    const subCategory = form.subCategory.value;
     const description = form.description.value;
 
     console.log(
@@ -21,20 +26,61 @@ const AddAToy = () => {
       sellerName,
       price,
       quantity,
+      subCategory,
       rating,
       description
     );
 
-    const toy = {
-      toyName,
+    if (
+      (toyName,
       photoUrl,
       sellerEmail,
       sellerName,
       price,
       quantity,
+      subCategory,
       rating,
-      description,
-    };
+      description)
+    ) {
+      const toy = {
+        toyName,
+        photoUrl,
+        sellerEmail,
+        sellerName,
+        price,
+        subCategory,
+        quantity,
+        rating,
+        description,
+      };
+
+      fetch("http://localhost:5000/allProducts", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(toy),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully added",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+    } else {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please, Add A Toy!",
+      });
+    }
   };
 
   return (
@@ -62,6 +108,7 @@ const AddAToy = () => {
             placeholder="Seller Name"
             name="sellerName"
             className="input input-bordered"
+            defaultValue={user?.displayName}
           />
         </div>
         <div className="form-control">
@@ -70,6 +117,7 @@ const AddAToy = () => {
             placeholder="Seller Email"
             name="sellerEmail"
             className="input input-bordered"
+            defaultValue={user?.email}
           />
         </div>
         <div className="form-control">
