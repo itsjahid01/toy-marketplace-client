@@ -14,7 +14,9 @@ const MyToys = () => {
   // console.log(userAdded);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/allProducts/${user.email}`)
+    fetch(
+      `https://toy-marketplace-server-side-itsjahid01.vercel.app/allProducts/${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setUserAdded(data));
   }, []);
@@ -30,9 +32,12 @@ const MyToys = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allProducts/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://toy-marketplace-server-side-itsjahid01.vercel.app/allProducts/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

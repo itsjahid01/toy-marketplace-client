@@ -22,13 +22,16 @@ const UpdateToy = () => {
     const updateToy = { price, quantity, description };
     console.log(updateToy);
 
-    fetch(`http://localhost:5000/allProducts/${_id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateToy),
-    })
+    fetch(
+      `https://toy-marketplace-server-side-itsjahid01.vercel.app/allProducts/${_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateToy),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

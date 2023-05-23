@@ -7,12 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const ShopByCategory = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const [category, setCategory] = useState("Sports Car");
   const [toys, setToys] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/category/${category}`)
+    fetch(
+      `https://toy-marketplace-server-side-itsjahid01.vercel.app/category/${category}`
+    )
       .then((res) => res.json())
       .then((data) => setToys(data));
   }, [category]);
