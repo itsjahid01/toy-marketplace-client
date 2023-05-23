@@ -52,7 +52,7 @@ const ToysDetail = () => {
             <span className="text-lg font-semibold text-fuchsia-800 mr-2">
               Price:
             </span>
-            $ {price}
+            ${price}
           </p>
           <p>
             <span className="text-lg font-semibold text-fuchsia-800 mr-2">

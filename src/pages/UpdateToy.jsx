@@ -46,7 +46,7 @@ const UpdateToy = () => {
 
   return (
     <div className="my-5">
-      <p className="text-4xl text-center p-5 font-semibold">Update Toy</p>
+      <p className="text-4xl text-center p-5 font-semibold mb-3">Update Toy</p>
       <div className="card w-2/5 mx-auto  shadow-2xl mb-8">
         <form onSubmit={handleUpdate} className="card-body">
           <div className="form-control">
